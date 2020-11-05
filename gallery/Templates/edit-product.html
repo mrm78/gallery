@@ -1,0 +1,97 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login-register.css' %}">
+    <title>ورود</title>
+</head>
+
+<body>
+    <!-- START LOGIN -->
+    <div class="login">
+        <div class="row login-row">
+            <div class="col-md-6 col-lg-6 col-xl-6 login-right-col">
+                <div class="login-right">
+                </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 login-left-col">
+                <div class="login-left">
+                    <div class="login-left-logo">
+                        <a href="#" class="login-left-logo-link">
+
+                        </a>
+                    </div>
+                    {% if error %}
+                    <div class="alert alert-danger w-75 mx-auto">
+                        <p>{{error}}</p>
+                    </div>
+                    {% endif %}
+                    <form action="{% url 'edit_product' product.id %}" method="POST" class="login-left-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="login-left-input-group">
+                            <div class="login-left-input-wrapper">
+                                <input type="text" class="login-left-input" placeholder="نام آموزش" value="{{product.name.decode}}" name="name" required onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <input type="number" class="login-left-input" placeholder="تعداد ویدیو" value="{{product.videos_number}}" name="videos_number" required onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <input type="text" class="login-left-input" placeholder="مدرس" value="{{product.presentor.decode}}" name="presentor" required onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <input type="number" class="login-left-input" placeholder="قیمت به تومان" value="{{product.price}}" name="price" required onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <textarea class="login-left-input" style="height:300px" placeholder="توضیحات" name="summary" required onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">{{product.summary.decode}}</textarea>
+                            </div>
+                        </div>
+                        <div class="login-left-input-group">
+                            <div class="login-left-input-wrapper">
+                                <input type="file" class="login-left-input" placeholder="file" name="file" onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <i class="fa login-left-icon">فایل آموزش</i>
+                            </div>
+                        </div>
+                        <div class="login-left-input-group">
+                            <div class="login-left-input-wrapper">
+                                <input type="file" class="login-left-input" placeholder="file" name="image" onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                <i class="fa login-left-icon">عکس محصول آموزشی</i>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="login-left-logo">
+                            جلسه ها
+                        </div>
+                        <div class="login-left-input-group">
+                            <div id="session" class="login-left-input-wrapper">
+                                {% for session in product.session_set.all %}
+                                    <input type="text" id="topic" class="login-left-input" placeholder="موضوع" value={{session.topic.decode}} name="topic{{session.number}}" onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off">
+                                    <input type="text" id="time" class="login-left-input" placeholder="مدت زمان" value={{session.time.decode}} name="time{{session.number}}" onfocus="focusInput(this)" onblur="blurInput(this)" autocomplete="off"><br><br><br>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="login-left-input-group">
+                            <button type="submit" class="login-left-submit">ثبت</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- END LOGIN -->
+
+    </div>
+    <script src="{% static 'scripts/jquery.min.js' %}"></script>
+    <script>
+        function focusInput(element) {
+            element.parentNode.classList.add("focus-input-wrapper")
+        }
+
+        function blurInput(element) {
+            element.parentNode.classList.remove("focus-input-wrapper");
+        }
+        document.write()
+    </script>
+</body>
+
+</html>

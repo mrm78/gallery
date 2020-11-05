@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'styles/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/list-articles.css' %}">
+    <title>گالری آموزش</title>
+{% endblock header %}
+
+
+{% block page %}
+<div class="page-wrapper">
+    <section class="list-articles">
+        <div class="container list-articles-container">
+            <div class="list-articles-boxes-wrapper">
+                <div class="row list-articles-boxes-wrapper-row">
+                {% for a in articles %}
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                        <div class="list-articles-boxes">
+                            <div class="list-articles-boxes-header">
+                                <img src="{{a.image.url}}" class="list-articles-boxes-header-image" alt="{{a.topic.name}}"/>
+                                <div class="list-articles-boxes-header-overlay">
+                                    <a href="{% url 'article' a.id %}" class="list-articles-boxes-header-overlay-link">مشاهده مقاله</a>
+                                </div>
+                            </div>
+                            <div class="list-articles-boxes-content">
+                                <h3 class="list-articles-boxes-content-heading-three">
+                                    <a href="{% url 'article' a.id %}" class="list-articles-boxes-content-link">
+                                        {{a.topic.decode}}
+                                    </a>
+                                </h3>
+                                <p class="list-articles-boxes-content-paragraph">
+                                    {{a.text.decode}}
+                                </p>
+                            </div>
+                            <div class="list-articles-boxes-footer">
+                                <div class="list-articles-boxes-footer-time">
+                                    <i class="fa fa-calendar list-articles-boxes-footer-time-icon"></i>
+                                    <span class="list-articles-boxes-footer-time-span">1{{a.shamsi_date}}</span>
+                                </div>
+                                <div class="list-articles-boxes-footer-view">
+                                    <i class="fa fa-eye list-articles-boxes-footer-view-icon"></i>
+                                    <span class="list-articles-boxes-footer-view-span">{{a.view_counter}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock page %}
+

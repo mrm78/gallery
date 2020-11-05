@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styles/swiper.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/login-register.css' %}">
+    <title>ثبت نام</title>
+</head>
+<body>
+<!-- START LOGIN -->
+
+<div class="login">
+    <div class="row login-row">
+        <div class="col-md-6 col-lg-6 col-xl-6 login-right-col">
+            <div class="login-right">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 login-left-col">
+            <div class="login-left">
+                <div class="login-left-logo">
+                    <a href="#" class="login-left-logo-link">
+                        گالری آموزش
+                    </a>
+                </div>
+                <div class="login-left-anchors">
+                    <a href="{% url 'login' %}" class="login-left-anchors-link">
+                        ورود
+                    </a>
+                    <a href="{% url 'register' %}" class="login-left-anchors-link  login-left-anchors-link-active">
+                        ثبت نام
+                    </a>
+                </div>
+                {% if error %}
+                <div class="alert alert-danger w-75 mx-auto">
+                    <p>{{error}}</p>
+                </div>
+                {% endif %}
+                <form action="{% url 'register' %}" method="POST" class="login-left-form">
+                    {% csrf_token %}
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="text" class="login-left-input" placeholder="نام و نام خانوادگی" name="name" value="{{name}}" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off">
+                            <i class="fa fa-user login-left-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="text" class="login-left-input" placeholder="شماره تلفن" name="phone" value="{{phone}}" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off" {% if submit == 'تایید' %}readonly{% endif %}>
+                            <i class="fa fa-phone login-left-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="text" class="login-left-input" placeholder="پست الکترونیک" name="email" value="{{email}}" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off">
+                            <i class="fa fa-envelope login-left-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="password" class="login-left-input" placeholder="رمز عبور" name="password" value="{{password}}" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off">
+                            <i class="fa fa-lock login-left-icon"></i>
+                        </div>
+                    </div>
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="password" class="login-left-input" placeholder="تکرار عبور" name="cnf_password" value="{{cnf_password}}" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off">
+                            <i class="fa fa-lock login-left-icon"></i>
+                        </div>
+                    </div>
+                    {% if submit == 'تایید' %}
+                    <div class="login-left-input-group">
+                        <div class="login-left-input-wrapper">
+                            <input type="number" class="login-left-input" placeholder="کد تایید" name="verification_code" onfocus="focusInput(this)" onblur="blurInput(this)" required autocomplete="off">
+                            <i class="fa fa-check login-left-icon"></i>
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="login-left-input-group">
+                        <input type="submit" name="submit" value="{{submit}}" class="login-left-submit" >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- END LOGIN -->
+
+</div>
+<script src="{% static 'scripts/jquery.js' %}"></script>
+<script>
+    function focusInput(element) {
+        element.parentNode.classList.add("focus-input-wrapper")
+    }
+
+    function blurInput(element) {
+        element.parentNode.classList.remove("focus-input-wrapper");
+    }
+</script>
+</body>
+</html>

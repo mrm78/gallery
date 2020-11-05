@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'styles/course.css' %}">
+    <title>دوره ی آموزشی</title>
+{% endblock header %}
+
+
+{% block page %}
+<div class="page-wrapper">
+    <section class="course">
+        <div class="container course-container">
+            <div class="row course-row">
+                <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-8 course-right-col">
+                    <div class="course-right">
+                        <div class="course-right-image-wrapper">
+                            <img src="{{product.image.url}}" class="course-right-image" alt="{{product.name.decode}}"/>
+                        </div>
+                        <h1 class="course-right-heading-one">{{product.name.decode}}</h1>
+                        <ul class="nav nav-tabs course-right-list" id="tab" role="tablist">
+                            <li class="nav-item course-right-item">
+                                <a class="nav-link active course-right-link" data-toggle="tab" href="#description"
+                                   role="tab">
+                                    توضيحات
+                                </a>
+                            </li>
+                            <li class="nav-item course-right-item">
+                                <a class="nav-link course-right-link" data-toggle="tab" href="#comment" role="tab">
+                                    نظرات</a>
+                            </li>
+                            <li class="nav-item course-right-item">
+                                <a class="nav-link course-right-link" data-toggle="tab" href="#session" role="tab">
+                                    جلسات</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content course-right-content">
+                            <div class="tab-pane fade show active  course-right-content-description" id="description"
+                                 role="tabpanel">
+                                <h3 class="course-right-content-description-heading-three">
+                                    توضيحات
+                                </h3>
+                                <p>
+                                    {{product.summary.decode  | linebreaksbr}}
+                                </p>
+                            </div>
+                            <div class="tab-pane fade course-right-content-comment" id="comment" role="tabpanel">
+                                <h3 class="course-right-content-comment-heading-three">نظرات</h3>
+                                <div class="course-right-content-comment-send">
+                                    <img src="{% static 'images/bullet.svg' %}" class="course-right-content-comment-send-image">
+                                    <p class="course-right-content-comment-send-paragraph">دیدگاه خود را با ما به اشتراک بگذارید</p>
+                                    <form action="{% url 'commenting' %}" method="POST" class="course-right-content-comment-send-form">
+                                        {% csrf_token %}
+                                        <textarea name="text" class="course-right-content-comment-send-text-area" placeholder="دیدگاه خود را وارد کنید"></textarea>
+                                        <input type="text" name="product_id" value="{{product.id}}" hidden>
+                                        <button type="submit" class="course-right-content-comment-send-submit">ارسال نظر</button>
+                                    </form>
+                                </div>
+                                <ul class="course-right-content-comment-list">
+                                {% for comment in product.comment_set.all  %}
+                                    <li class="course-right-content-comment-item">
+                                        <div class="course-right-content-comment-right">
+                                            <img src="{% static 'images/default-user.jpg' %}"
+                                                 class="course-right-content-comment-right-image" alt=""/>
+                                        </div>
+                                        <div class="course-right-content-comment-left">
+                                            <div class="course-right-content-comment-left-details">
+                                                <span class="course-right-content-comment-left-details-user">
+                                                <i class="fa fa-user course-right-content-comment-left-details-icon"></i>
+                                                    <span class="course-right-content-comment-left-details-span">{{comment.user.name.decode}}</span>
+                                            </span>
+                                                <span class="course-right-content-comment-left-details-time">
+                                                <i class="fa fa-calendar course-right-content-comment-left-details-icon"></i>
+                                                    <span class="course-right-content-comment-left-details-span">{{comment.shamsi_date}}</span>
+                                            </span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <p class="course-right-content-comment-left-paragraph">
+                                                {{comment.text.decode | linebreaksbr}}
+                                            </p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade course-right-content-session" id="session" role="tabpanel">
+                                <h3 class="course-right-content-session-heading-three">
+                                    جلسات
+                                </h3>
+                                <ul class="course-right-content-session-list">
+                                {% for session in product.session_set.all %}
+                                    <li class="course-right-content-session-item">
+                                        <span class="course-right-content-session-number">{{session.number}}</span>
+                                        <span class="course-right-content-session-title">{{session.topic.decode}}</span>
+                                        <span class="course-right-content-session-time">{{session.time.decode}}</span>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-4 course-left-col">
+                    <div class="course-left">
+                        <div class="course-left-price">
+                            <span class="course-left-price-title">قيمت :</span>
+                            <span class="course-left-price-value">{{product.price}}</span>
+                            <span class="course-left-price-unit">تومان</span>
+                            {% if paid %}
+                            <a href="{% url 'download' product.id %}" class="course-left-price-link">
+                                دانلود
+                            </a>
+                            {% else %}
+                            <a href="{% url 'payment_request' product.id %}" class="course-left-price-link">
+                                خريد محصول
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="course-left-features">
+                            <ul class="course-left-features-list">
+                                <li class="course-left-features-item">
+                                    <span class="course-left-features-title">مدرس :</span>
+                                    <span class="course-left-features-value">{{product.presentor.decode}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <span class="course-left-features-title">مدت زمان :</span>
+                                    <span class="course-left-features-value">{{product.time.decode}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <span class="course-left-features-title">تعداد ويديو :</span>
+                                    <span class="course-left-features-value">{{product.videos_number}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <span class="course-left-features-title">تعداد نظرات :</span>
+                                    <span class="course-left-features-value">{{product.comment_set.count}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <span class="course-left-features-title">تعداد بازدید :</span>
+                                    <span class="course-left-features-value">1397</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock page %}
+    

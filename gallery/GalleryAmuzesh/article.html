@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'styles/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/article.css' %}">
+    <title>دوره ی آموزشی</title>
+{% endblock header %}
+
+
+{% block page %}
+<div class="page-wrapper">
+    <section class="article">
+        <div class="container article-container">
+            <div class="row article-row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 article-right-col">
+                    <div class="article-right">
+                        <div class="article-right-image-wrapper">
+                            <img src="{{article.image.url}}" class="article-right-image" alt="{{article.topic.decode}}"/>
+                        </div>
+                        <h1 class="article-right-heading-one">{{article.topic.decode}}</h1>
+                        <ul class="nav nav-tabs article-right-list" id="tab" role="tablist">
+                            <li class="nav-item article-right-item">
+                                <a class="nav-link active article-right-link" data-toggle="tab" href="#description"
+                                   role="tab">
+                                    توضيحات
+                                </a>
+                            </li>
+                            <li class="nav-item article-right-item">
+                                <a class="nav-link article-right-link" data-toggle="tab" href="#comment" role="tab">
+                                    نظرات</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content article-right-content">
+                            <div class="tab-pane fade show active  article-right-content-description" id="description"
+                                 role="tabpanel">
+                                <h3 class="article-right-content-description-heading-three">
+                                    توضيحات
+                                </h3>
+                                <p>
+                                    {{article.text.decode | linebreaksbr}}
+                                </p>
+                            </div>
+                            <div class="tab-pane fade article-right-content-comment" id="comment" role="tabpanel">
+                                <h3 class="article-right-content-comment-heading-three">نظرات</h3>
+                                <div class="article-right-content-comment-send">
+                                    <img src="{% static 'images/bullet.svg' %}" class="article-right-content-comment-send-image">
+                                    <p class="article-right-content-comment-send-paragraph">دیدگاه خود را با ما به اشتراک بگذارید</p>
+                                    <form action="{% url 'article_commenting' %}" method="POST" class="article-right-content-comment-send-form">
+                                        {% csrf_token %}
+                                        <input type="text" name="article_id" value="{{article.id}}" hidden>
+                                        <textarea class="article-right-content-comment-send-text-area" name="text" placeholder="دیدگاه خود را وارد کنید"></textarea>
+                                        <button type="submit" class="article-right-content-comment-send-submit">ارسال نظر</button>
+                                    </form>
+                                </div>
+                                <ul class="article-right-content-comment-list">
+                                {% for c in  article.article_comment_set.all %}
+                                    <li class="article-right-content-comment-item">
+                                        <div class="article-right-content-comment-right">
+                                            <img src="{% static 'images/default-user.jpg' %}"
+                                                 class="article-right-content-comment-right-image" alt=""/>
+                                        </div>
+                                        <div class="article-right-content-comment-left">
+                                            <div class="article-right-content-comment-left-details">
+                                                <span class="article-right-content-comment-left-details-user">
+                                                <i class="fa fa-user article-right-content-comment-left-details-icon"></i>
+                                                    <span class="article-right-content-comment-left-details-span">{{c.user.name.decode}}</span>
+                                            </span>
+                                                <span class="article-right-content-comment-left-details-time">
+                                                <i class="fa fa-calendar article-right-content-comment-left-details-icon"></i>
+                                                    <span class="article-right-content-comment-left-details-span">{{c.shamsi_date}}</span>
+                                            </span>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <p class="article-right-content-comment-left-paragraph">
+                                                {{c.text.decode | linebreaksbr}}
+                                            </p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 article-left-col">
+                    <div class="article-left">
+                        <div class="article-left-features">
+                            <ul class="article-left-features-list">
+                                <li class="article-left-features-item">
+                                    <i class="fa fa-user article-left-features-icon"></i>
+                                    <span class="article-left-features-title">نويسنده :</span>
+                                    <span class="article-left-features-value">{{article.presentor.decode}}</span>
+                                </li>
+                                <li class="article-left-features-item">
+                                    <i class="fas fa-comments article-left-features-icon"></i>
+                                    <span class="article-left-features-title">تعداد نظرات :</span>
+                                    <span class="article-left-features-value">{{article.article_comment_set.count}}</span>
+                                </li>
+                                <li class="article-left-features-item">
+                                    <i class="fas fa-eye article-left-features-icon"></i>
+                                    <span class="article-left-features-title">تعداد بازديد :</span>
+                                    <span class="article-left-features-value">{{article.view_counter}}</span>
+                                </li>
+                                <li class="article-left-features-item">
+                                    <i class="fas fa-calendar article-left-features-icon"></i>
+                                    <span class="article-left-features-title">تاريخ :</span>
+                                    <span class="article-left-features-value">{{article.shamsi_date}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="article-left-tags">
+                            <ul class="article-left-tags-list">
+                            {% for a in articles %}
+                                <a href="{% url 'article' a.id %}">
+                                <li class="article-left-tags-item">
+                                    {{a.topic.decode}}
+                                </li>
+                                </a>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock page %}

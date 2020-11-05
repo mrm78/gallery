@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+    {% block header %}
+    <link rel="stylesheet" href="{% static 'styles/panel.css' %}">
+    <title>پنل کاربری</title>
+    {% endblock %}
+{% block page %}
+
+<div class="page-wrapper">
+
+    <!-- START PANEL -->
+    <section class="panel">
+        <div class="container panel-container">
+            <div class="row panel-row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 panel-right-col">
+                    <div class="panel-right">
+                        <div class="panel-right-header">
+                            <img src="{% static 'images/default-user.jpg' %}" class="panel-right-header-image"/>
+                            <h3 class="panel-right-header-heading-three">{{user.name.decode}}</h3>
+                            <p class="panel-right-header-paragraph">
+                                عضویت از :
+                                {{user.shamsi_date}}
+                            </p>
+                        </div>
+                        <div class="panel-right-content">
+                            <ul class="panel-right-content-list">
+                                <li class="panel-right-content-item panel-right-content-item-active">
+                                    <a href="{% url 'dashboard' %}" class="panel-right-content-link">
+                                        داشبورد
+                                    </a>
+                                </li>
+                                <!--<li class="panel-right-content-item">
+                                    <a href="#" class="panel-right-content-link">
+                                        ویرایش اطلاعات شخصی
+                                    </a>
+                                </li>-->
+                                <li class="panel-right-content-item">
+                                    <a href="{% url 'edit_password' %}" class="panel-right-content-link">
+                                        تغییر رمز عبور
+                                    </a>
+                                </li>
+                                <li class="panel-right-content-item">
+                                    <a href="{% url 'my_courses' %}" class="panel-right-content-link">
+                                        دوره های من
+                                    </a>
+                                </li>
+                                <li class="panel-right-content-item">
+                                    <a href="{% url 'logout' %}" class="panel-right-content-link">
+                                        خروج از حساب کاربری
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-9 panel-left-col">
+                    <div class="panel-left">
+                        <div class="panel-left-dashboard">
+                            <div class="panel-left-dashboard-header">
+                                <h3 class="panel-left-dashboard-header-heading-three">
+                                    داشبورد
+                                </h3>
+                            </div>
+                            <div class="panel-left-dashboard-content">
+                                <ul class="panel-left-dashboard-content-list">
+                                    <li class="panel-left-dashboard-content-item">
+                                        شماره تلفن:
+                                        {{user.phone}}
+                                    </li>
+                                    <li class="panel-left-dashboard-content-item">
+                                        پست الکترونیک: 
+                                        {{user.email}}
+                                    </li>
+                                    <li class="panel-left-dashboard-content-item">
+                                        عضویت :  {{user.shamsi_date}}
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END PANEL -->
+
+</div>
+
+{% endblock %}
