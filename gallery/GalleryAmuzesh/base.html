@@ -7,230 +7,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{% static 'images/favicon.ico' %}"/>
-    <link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}"/>
-    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
-    {% block header %}
-    {% endblock header %}
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}"> {% block header %} {% endblock header %}
 </head>
 
 <body>
 
-<!-- START PRELOADER -->
+    <!-- START PRELOADER --
 <div class="preloader">
     <div class="preloader-spinner">
         <div class="preloader-spinner-bounce"></div>
         <div class="preloader-spinner-bounce"></div>
     </div>
 </div>
-<!-- END PRELOADER -->
+<-- END PRELOADER -->
 
-<!-- START HEADER -->
-<header class="header" id="header">
-    <div class="header-top">
-        <div class="header-top-large">
-            <div class="container header-top-container">
-                <div class="row header-top-row">
-                    <div class="col-md-2 col-lg-2 col-xl-2 header-top-logo">
-                        <div class="header-top-logo">
-                            <a href="{% url 'home' %}" class="header-top-logo-link">
-                                <img src="{% static 'images/logo.png' %}" class="header-top-logo-image" alt="گالری آموزش"/>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-7 col-lg-7 col-xl-7 header-top-menu-col">
-                        <nav class="header-top-menu">
-                            <ul class="header-top-menu-list">
-                                <li class="header-top-menu-item">
-                                    <a href="{% url 'home' %}" class="header-top-menu-link">خانه</a>
-                                </li>
-                                <li class="header-top-menu-item">
-                                    <a href="{% url 'list_courses' %}" class="header-top-menu-link scroll">دوره ها</a>
-                                </li>
-                                <li class="header-top-menu-item">
-                                    <a href="{% url 'list_articles' %}" class="header-top-menu-link">مقالات</a>
-                                </li>
-                                <li class="header-top-menu-item">
-                                    <a href="#footer" class="header-top-menu-link">تماس با ما</a>
-                                </li>
-                                <li class="header-top-menu-item">
-                                    <a href="#footer" class="header-top-menu-link">درباره ما</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div class="col-md-3 col-lg-3 col-xl-3 header-top-actions-col">
-                        <div class="header-top-actions">
-                            <!--div class="header-top-actions-login-register">
-                                <a href="login.html" class="header-top-actions-login-register-link">ورود</a>
-                                <a href="login.html" class="header-top-actions-login-register-link">ثبت نام</a>
-                            </div -->
-                            {% if user.is_authenticated %}
-                                <div class="header-top-actions-account">
-                                    <a href="{% url 'dashboard' %}" class="header-top-actions-account-link">پنل کاربری</a>
-                                    <a href="{% url 'logout' %}" class="header-top-actions-account-link">خروج</a>
-                                </div>
-                            {% else %}
-                                <div class="header-top-actions-account">
-                                    <a href="{% url 'login' %}" class="header-top-actions-account-link">ورود</a>
-                                    <a href="{% url 'register' %}" class="header-top-actions-account-link">ثبت نام</a>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="header-top-medium">
-            <div class="container header-top-container">
-                <div class="row header-top-row">
-                    <div class="col-4 col-sm-4 col-md-6">
-                        <nav class="responsive-menu" id="responsiveMenu">
-                            <div class="responsive-menu-header">
-                                <img src="{% static 'images/logo.png' %}" class="responsive-menu-header-image" alt=""/>
-                                <button class="responsive-menu-header-button" id="closeNav">
-                                    <i class="fa fa-times responsive-menu-header-icon"></i>
-                                </button>
+    <!-- START HEADER -->
+    <header class="header" id="header">
+        <div class="header-top">
+            <div class="header-top-large">
+                <div class="container header-top-container">
+                    <div class="row header-top-row">
+                        <div class="col-md-2 col-lg-2 col-xl-2 header-top-logo">
+                            <div class="header-top-logo">
+                                <a href="{% url 'home' %}" class="header-top-logo-link">
+                                    <img src="{% static 'images/logo.png' %}" class="header-top-logo-image" alt="گالری آموزش" />
+                                </a>
                             </div>
-                            <div class="responsive-menu-content">
-                                <ul class="responsive-menu-content-list">
-                                    <li class="responsive-menu-content-item">
-                                        <a href="{% url 'home' %}" class="responsive-menu-content-link">خانه</a>
+                        </div>
+                        <div class="col-md-7 col-lg-7 col-xl-7 header-top-menu-col">
+                            <nav class="header-top-menu">
+                                <ul class="header-top-menu-list">
+                                    <li class="header-top-menu-item">
+                                        <a href="{% url 'home' %}" class="header-top-menu-link">خانه</a>
                                     </li>
-                                    <li class="responsive-menu-content-item">
-                                        <a href="{% url 'list_courses' %}" class="responsive-menu-content-link">دوره ها</a>
+                                    <li class="header-top-menu-item">
+                                        <a href="{% url 'list_courses' %}" class="header-top-menu-link scroll">دوره ها</a>
                                     </li>
-                                    <li class="responsive-menu-content-item">
-                                        <a href="{% url 'list_articles' %}" class="responsive-menu-content-link">مقالات</a>
+                                    <li class="header-top-menu-item">
+                                        <a href="{% url 'list_articles' %}" class="header-top-menu-link">مقالات</a>
                                     </li>
-                                    <li class="responsive-menu-content-item">
-                                        <a href="#footer" class="responsive-menu-content-link">تماس با ما</a>
+                                    <li class="header-top-menu-item">
+                                        <a href="#footer" class="header-top-menu-link">تماس با ما</a>
                                     </li>
-                                    <li class="responsive-menu-content-item">
-                                        <a href="#footer" class="responsive-menu-content-link">درباره ما</a>
+                                    <li class="header-top-menu-item">
+                                        <a href="#footer" class="header-top-menu-link">درباره ما</a>
                                     </li>
                                 </ul>
-                            </div>
-                        </nav>
-                        <div class="responsive-menu-overlay" id="overlay"></div>
-                        <button class="responsive-menu-button" id="openNav">
-                            <i class="fa fa-bars responsive-menu-icon"></i>
-                        </button>
-                    </div>
-                    <div class="col-8 col-sm-8 col-md-6">
-                        <div class="header-top-actions">
-                            <!--div class="header-top-actions-login-register">
+                            </nav>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-xl-3 header-top-actions-col">
+                            <div class="header-top-actions">
+                                <!--div class="header-top-actions-login-register">
                                 <a href="login.html" class="header-top-actions-login-register-link">ورود</a>
                                 <a href="login.html" class="header-top-actions-login-register-link">ثبت نام</a>
                             </div -->
-                            {% if user.is_authenticated %}
+                                {% if user.is_authenticated %}
                                 <div class="header-top-actions-account">
                                     <a href="{% url 'dashboard' %}" class="header-top-actions-account-link">پنل کاربری</a>
                                     <a href="{% url 'logout' %}" class="header-top-actions-account-link">خروج</a>
                                 </div>
-                            {% else %}
+                                {% else %}
                                 <div class="header-top-actions-account">
                                     <a href="{% url 'login' %}" class="header-top-actions-account-link">ورود</a>
                                     <a href="{% url 'register' %}" class="header-top-actions-account-link">ثبت نام</a>
                                 </div>
-                            {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-top-medium">
+                <div class="container header-top-container">
+                    <div class="row header-top-row">
+                        <div class="col-4 col-sm-4 col-md-6">
+                            <nav class="responsive-menu" id="responsiveMenu">
+                                <div class="responsive-menu-header">
+                                    <img src="{% static 'images/logo.png' %}" class="responsive-menu-header-image" alt="" />
+                                    <button class="responsive-menu-header-button" id="closeNav">
+                                    <i class="fa fa-times responsive-menu-header-icon"></i>
+                                </button>
+                                </div>
+                                <div class="responsive-menu-content">
+                                    <ul class="responsive-menu-content-list">
+                                        <li class="responsive-menu-content-item">
+                                            <a href="{% url 'home' %}" class="responsive-menu-content-link">خانه</a>
+                                        </li>
+                                        <li class="responsive-menu-content-item">
+                                            <a href="{% url 'list_courses' %}" class="responsive-menu-content-link">دوره ها</a>
+                                        </li>
+                                        <li class="responsive-menu-content-item">
+                                            <a href="{% url 'list_articles' %}" class="responsive-menu-content-link">مقالات</a>
+                                        </li>
+                                        <li class="responsive-menu-content-item">
+                                            <a href="#footer" class="responsive-menu-content-link">تماس با ما</a>
+                                        </li>
+                                        <li class="responsive-menu-content-item">
+                                            <a href="#footer" class="responsive-menu-content-link">درباره ما</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div class="responsive-menu-overlay" id="overlay"></div>
+                            <button class="responsive-menu-button" id="openNav">
+                            <i class="fa fa-bars responsive-menu-icon"></i>
+                        </button>
+                        </div>
+                        <div class="col-8 col-sm-8 col-md-6">
+                            <div class="header-top-actions">
+                                <!--div class="header-top-actions-login-register">
+                                <a href="login.html" class="header-top-actions-login-register-link">ورود</a>
+                                <a href="login.html" class="header-top-actions-login-register-link">ثبت نام</a>
+                            </div -->
+                                {% if user.is_authenticated %}
+                                <div class="header-top-actions-account">
+                                    <a href="{% url 'dashboard' %}" class="header-top-actions-account-link">پنل کاربری</a>
+                                    <a href="{% url 'logout' %}" class="header-top-actions-account-link">خروج</a>
+                                </div>
+                                {% else %}
+                                <div class="header-top-actions-account">
+                                    <a href="{% url 'login' %}" class="header-top-actions-account-link">ورود</a>
+                                    <a href="{% url 'register' %}" class="header-top-actions-account-link">ثبت نام</a>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% block banner %}
-    {% endblock banner %}
-</header>
-<!-- END HEADER -->
+        {% block banner %} {% endblock banner %}
+    </header>
+    <!-- END HEADER -->
 
-{% block page %}
-{% endblock page %}
+    {% block page %} {% endblock page %}
 
 
-<!-- START FOOTER -->
-<footer class="footer" id="footer">
-    <div class="container footer-container">
-        <div class="row footer-row">
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-right-col">
-                <div class="footer-right">
-                    <img src="{% static 'images/logo.png' %}" class="footer-right-image"/>
-                    <p class="footer-right-paragraph">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک
-                        است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط
-                        فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. </p>
+    <!-- START FOOTER -->
+    <footer class="footer" id="footer">
+        <div class="container footer-container">
+            <div class="row footer-row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-right-col">
+                    <div class="footer-right">
+                        <img src="{% static 'images/logo.png' %}" class="footer-right-image" />
+                        <p class="footer-right-paragraph">
+                            گالری آموزش حاصل یک تفکر تحول گرا و زیبایی محور است با هدف پیشرفت روز افزون و جایگاهی بالاتر برای شما <i class="fa fa-heart" style="font-size:18px"></i>
+                        </p>
+                        <p class="footer-right-paragraph" style="color:navy">با ما در ارتباط باشید</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-center-col">
-                <div class="footer-center">
-                    <h4 class="footer-center-heading-four">دسترسي سريع</h4>
-                    <ul class="footer-center-list">
-                        <li class="footer-center-item">
-                            <a href="{% url 'home' %}" class="footer-center-link">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-center-col">
+                    <div class="footer-center">
+                        <h4 class="footer-center-heading-four">دسترسي سريع</h4>
+                        <ul class="footer-center-list">
+                            <li class="footer-center-item">
+                                <a href="{% url 'home' %}" class="footer-center-link">
                                 صفحه اصلي
                             </a>
-                        </li>
-                        <li class="footer-center-item">
-                            <a href="{% url 'list_courses' %}" class="footer-center-link">
+                            </li>
+                            <li class="footer-center-item">
+                                <a href="{% url 'list_courses' %}" class="footer-center-link">
                                 دوره ها
                             </a>
-                        </li>
-                        <li class="footer-center-item">
-                            <a href="{% url 'list_articles' %}" class="footer-center-link">
+                            </li>
+                            <li class="footer-center-item">
+                                <a href="{% url 'list_articles' %}" class="footer-center-link">
                                 مقالات
                             </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
-                <div class="footer-left">
-                    <div class="footer-left-social-networks">
-                        <a href="https://t.me/gallery_amozesh" class="footer-left-social-networks-link">
-                            <i class="fab fa-telegram footer-left-social-networks-icon"></i>
-                        </a>
-                        <a href="http://instagram.com/gallery_amozesh" class="footer-left-social-networks-link">
-                            <i class="fab fa-instagram footer-left-social-networks-icon"></i>
-                        </a>
-                        <a href="https://youtube.com/channel/UCx5usDPDlA-VIENDJvPrNMw" class="footer-left-social-networks-link">
-                            <i class="fab fa-youtube footer-left-social-networks-icon"></i>
-                        </a>
-                        <a href="https://t.me/Gallery_amozesh_Support#" class="footer-left-social-networks-link">
-                            <i class="fab fa-steam footer-left-social-networks-icon"></i>
-                        </a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="footer-left-electronic-credit">
-                        <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
-                        <img src="{% static 'images/enamad.png' %}" class="footer-left-electronic-credit-image" alt=""/>
-                        <img src="{% static 'images/logo-samandehi.png' %}" class="footer-left-electronic-credit-image" alt=""/>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 footer-left-col">
+                    <div class="footer-left">
+                        <div class="footer-left-social-networks">
+                            <a href="https://t.me/gallery_amozesh" class="footer-left-social-networks-link">
+                                <i class="fab fa-telegram footer-left-social-networks-icon"></i>
+                            </a>
+                            <a href="http://instagram.com/gallery_amozesh" class="footer-left-social-networks-link">
+                                <i class="fab fa-instagram footer-left-social-networks-icon"></i>
+                            </a>
+                            <a href="https://youtube.com/channel/UCx5usDPDlA-VIENDJvPrNMw" class="footer-left-social-networks-link">
+                                <i class="fab fa-youtube footer-left-social-networks-icon"></i>
+                            </a>
+                            <a href="https://t.me/Gallery_amozesh_Support#" class="footer-left-social-networks-link">
+                                <i class="fab fa-steam footer-left-social-networks-icon"></i>
+                            </a>
+                        </div>
+                        <div class="footer-left-electronic-credit">
+                            <script src="https://www.zarinpal.com/webservice/TrustCode" type="text/javascript"></script>
+                            <img src="{% static 'images/enamad.png' %}" class="footer-left-electronic-credit-image" alt="" />
+                            <img src="{% static 'images/logo-samandehi.png' %}" class="footer-left-electronic-credit-image" alt="" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <p class="footer-bottom-paragraph">
-            <span class="footer-bottom-copyright">&copy;</span>
-            تمامي حقوق براي آكادمي گالري آموزش محفوظ است
-        </p>
-    </div>
-</footer>
-<!-- END FOOTER -->
+        <div class="footer-bottom">
+            <p class="footer-bottom-paragraph">
+                <span class="footer-bottom-copyright">&copy;</span> تمامي حقوق براي آكادمي گالري آموزش محفوظ است
+            </p>
+        </div>
+    </footer>
+    <!-- END FOOTER -->
 
-<!-- START SCROLL BUTTON -->
-<button onclick="goTop() " id="scroll-button">
+    <!-- START SCROLL BUTTON -->
+    <button onclick="goTop() " id="scroll-button">
     <i class="fa fa-arrow-up scroll-button-icon "></i>
 </button>
-<!-- END SCROLL BUTTON -->
+    <!-- END SCROLL BUTTON -->
 
-<script src="{% static 'scripts/jquery.js' %}"></script>
-<script src="{% static 'scripts/poper.js' %}"></script>
-<script src="{% static 'scripts/bootstrap.js' %}"></script>
-<script src="{% static 'scripts/main.js' %}"></script>
-<script defer="defer" src="{% static 'scripts/all.js' %}"></script>
-{% block scripts %}
-{% endblock scripts %}
+    <script src="{% static 'scripts/jquery.js' %}"></script>
+    <script src="{% static 'scripts/poper.js' %}"></script>
+    <script src="{% static 'scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'scripts/main.js' %}"></script>
+    <script defer="defer" src="{% static 'scripts/all.js' %}"></script>
+    {% block scripts %} {% endblock scripts %}
 
 </body>
 

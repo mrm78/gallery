@@ -18,7 +18,7 @@ def list_articles(req):
     return render(req, 'list-articles.html', {'articles':article.objects.all()})
 
 #adding a new product to server by adm
-@login_required
+@login_required(login_url='login')
 def add_product(req):
     if not req.user.is_superuser:
         return 0
@@ -41,7 +41,7 @@ def add_product(req):
             s.save()
     return redirect('home')
 
-@login_required
+@login_required(login_url='login')
 def edit_product(req, ID):
     if not req.user.is_superuser:
         return 0
@@ -69,7 +69,7 @@ def edit_product(req, ID):
 
 
 #adding a new article to server by admin
-@login_required
+@login_required(login_url='login')
 def add_article(req):
     if not req.user.is_superuser:
         return 0
@@ -83,7 +83,7 @@ def add_article(req):
     a.save()
     return redirect('home')
 
-@login_required
+@login_required(login_url='login')
 def edit_article(req, ID):
     if not req.user.is_superuser:
         return 0
@@ -107,3 +107,4 @@ def article_commenting(req):
         c = article_comment(article=a, user=req.user, text=text.encode())
         c.save()
         return redirect('article', ID=a.id)
+
