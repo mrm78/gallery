@@ -20,6 +20,8 @@ class product(models.Model):
         return gregorian_to_shamsi(self.date)
     def percent_off(self):
         return int(self.off * 100)
+    def __str__(self):
+        return f'{self.id}. ' + self.name.decode()
 
 class order(models.Model):
     product = models.ForeignKey(product, on_delete=models.CASCADE)

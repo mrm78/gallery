@@ -50,7 +50,7 @@ def download(req, ID):
         filename = os.path.basename(the_file)
         chunk_size = 10000
         response = StreamingHttpResponse(FileWrapper(open(the_file, 'rb'), chunk_size), content_type=mimetypes.guess_type(the_file)[0])
-        response['Content-Length'] = os.path.getsize(the_file)    
+        response['Content-Length'] = str(os.path.getsize(the_file))
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         return response
     return HttpResponse('access denied!!')
@@ -63,7 +63,7 @@ def payment_request(req, ID):
     print(CallbackURL)
     p = product.objects.get(id=ID)
     Order = order(product=p, user=req.user)
-    result = client.service.PaymentRequest(MERCHANT, p.price, f'user_id:{req.user.id}', req.user.email, req.user.phone, CallbackURL)
+    result = client.service.PaymentRequest(MERCHANT, p.real_price(), f'user_id:{req.user.id}', req.user.email, req.user.phone, CallbackURL)
     if result.Status == 100:
         Order.Authority = str(result.Authority)
         Order.save()
@@ -80,7 +80,7 @@ def payment_verify(req):
         return redirect('home')
     if not req.user.phone == Order.user.phone:
         return redirect('home')
-    result = client.service.PaymentVerification(MERCHANT, req.GET.get('Authority'), Order.product.price)
+    result = client.service.PaymentVerification(MERCHANT, req.GET.get('Authority'), Order.product.real_price())
     if result.Status == 100:
         p = Order.product
         p.download_counter += 1
@@ -88,7 +88,7 @@ def payment_verify(req):
         Order.paid = True
         Order.RefID = str(result.RefID)
         Order.save()
-        return redirect('home')
+        return redirect('my_courses')
     else:
         Order.delete()
         return redirect('home')

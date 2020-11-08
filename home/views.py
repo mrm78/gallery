@@ -35,7 +35,7 @@ def add_product(req):
     off = int(req.POST['off']) / 100
     p = product(File=f,image=image, summary=summary.encode(), name=name.encode(), videos_number=videos_number.encode(), presentor=presentor.encode(), price=price, off=off, time=time.encode())
     p.save()
-    for i in range(1,11):
+    for i in range(1,21):
         if req.POST[f'topic{i}']:
             s = session(product=p, topic=req.POST[f'topic{i}'].encode(), number=i, time=req.POST[f'time{i}'].encode())
             s.save()
@@ -61,7 +61,7 @@ def edit_product(req, ID):
         p.image = req.FILES.get('image')
     p.save()
     p.session_set.all().delete()
-    for i in range(1,11):
+    for i in range(1,21):
         if req.POST.get(f'topic{i}'):
             s = session(product=p, topic=req.POST[f'topic{i}'].encode(), number=i, time=req.POST[f'time{i}'].encode())
             s.save()

@@ -13,6 +13,88 @@
     <section class="course">
         <div class="container course-container">
             <div class="row course-row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 course-left-col">
+                    <div class="course-left">
+                        <div class="course-left-features">
+                            <ul class="course-left-features-list">
+                                <li class="course-left-features-item">
+                                    <i class="fas fa-dollar-sign course-left-features-icon"></i>
+                                    <span class="course-left-features-title">قیمت : </span>
+                                    {% if product.off > 0 %}
+                                        <del class="course-left-features-delete">{{product.price}}</del>
+                                    {% endif %}
+                                    <span class="course-left-features-value">{{product.real_price}} تومان</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <i class="fa fa-user course-left-features-icon"></i>
+                                    <span class="course-left-features-title">مدرس :</span>
+                                    <span class="course-left-features-value">{{product.presentor.decode}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <i class="fas fa-video course-left-features-icon"></i>
+                                    <span class="course-left-features-title">تعداد قسمت ها :</span>
+                                    <span class="course-left-features-value">{{product.videos_number}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <i class="far fa-clock course-left-features-icon"></i>
+                                    <span class="course-left-features-title">مدت زمان :</span>
+                                    <span class="course-left-features-value">{{product.time.decode}}</span>
+                                </li>
+                                <li class="course-left-features-item">
+                                    <i class="	far fa-calendar course-left-features-icon"></i>
+                                    <span class="course-left-features-title">آخرين بروزرساني :</span>
+                                    <span class="course-left-features-value">{{product.shamsi_date}}</span>
+                                </li>
+                                {% if user.is_authenticated and user.is_superuser%}
+                                <li class="course-left-features-item">
+                                    <i class="fas fa-users course-left-features-icon"></i>
+                                    <span class="course-left-features-title">تعداد دانشجويان :</span>
+                                    <span class="course-left-features-value">{{product.download_counter}}</span>
+                                </li>
+                                {% endif %}
+                                <li class="course-left-features-item">
+                                    <i class="fas fa-comments course-left-features-icon"></i>
+                                    <span class="course-left-features-title">تعداد نظرات :</span>
+                                    <span class="course-left-features-value">{{product.comment_set.count}}</span>
+                                </li>
+                            </ul>
+                            {% if paid %}
+                                <div class="course-left-not-purchased">
+                                    <a href="{% url 'download' product.id %}" class="course-left-not-purchased-link">
+                                        <i class="fas fa-shopping-cart course-left-not-purchased-icon"></i>
+                                        <span class="course-left-not-purchased-title">دانلود دوره</span>
+                                    </a>
+                                </div>
+                                <div class="course-left-purchased">
+                                    <i class="far fa-check-circle course-left-purchased-icon"></i>
+                                    <span class="course-left-purchased-title">شما قبلاً اين دوره را خريداري كرده ايد.</span>
+                                </div>
+                            {% else %}
+                                <div class="course-left-not-purchased">
+                                    <a href="{% url 'payment_request' product.id %}" class="course-left-not-purchased-link">
+                                        <i class="fas fa-shopping-cart course-left-not-purchased-icon"></i>
+                                        <span class="course-left-not-purchased-title">ثبت نام در دوره</span>
+                                    </a>
+                                </div>
+                                <div class="course-left-purchased">
+                                    <i class="far fa-check-circle course-left-purchased-icon"></i>
+                                    <span class="course-left-purchased-title">پرداخت از طریق درگاه زرین پال</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="course-left-tags">
+                            <ul class="course-left-tags-list">
+                            {% for p in products  %}
+                            <a href="{% url 'product' p.id %}"
+                                <li class="course-left-tags-item">
+                                    {{p.name.decode}}
+                                </li>
+                            </a>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8 course-right-col">
                     <div class="course-right">
                         <div class="course-right-image-wrapper">
@@ -99,86 +181,6 @@
                                 {% endfor %}
                                 </ul>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 course-left-col">
-                    <div class="course-left">
-                        <div class="course-left-features">
-                            <ul class="course-left-features-list">
-                                <li class="course-left-features-item">
-                                    <i class="fas fa-dollar-sign course-left-features-icon"></i>
-                                    <span class="course-left-features-title">قیمت : </span>
-                                    {% if product.off > 0 %}
-                                        <del class="course-left-features-delete">{{product.price}}</del>
-                                    {% endif %}
-                                    <span class="course-left-features-value">{{product.real_price}} تومان</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="fa fa-user course-left-features-icon"></i>
-                                    <span class="course-left-features-title">مدرس :</span>
-                                    <span class="course-left-features-value">{{product.presentor.decode}}</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="fas fa-video course-left-features-icon"></i>
-                                    <span class="course-left-features-title">تعداد قسمت ها :</span>
-                                    <span class="course-left-features-value">{{product.videos_number}}</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="far fa-clock course-left-features-icon"></i>
-                                    <span class="course-left-features-title">مدت زمان :</span>
-                                    <span class="course-left-features-value">{{product.time.decode}}</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="	far fa-calendar course-left-features-icon"></i>
-                                    <span class="course-left-features-title">آخرين بروزرساني :</span>
-                                    <span class="course-left-features-value">{{product.shamsi_date}}</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="fas fa-users course-left-features-icon"></i>
-                                    <span class="course-left-features-title">تعداد دانشجويان :</span>
-                                    <span class="course-left-features-value">{{product.download_counter}}</span>
-                                </li>
-                                <li class="course-left-features-item">
-                                    <i class="fas fa-comments course-left-features-icon"></i>
-                                    <span class="course-left-features-title">تعداد نظرات :</span>
-                                    <span class="course-left-features-value">{{product.comment_set.count}}</span>
-                                </li>
-                            </ul>
-                            {% if paid %}
-                                <div class="course-left-not-purchased">
-                                    <a href="{% url 'download' product.id %}" class="course-left-not-purchased-link">
-                                        <i class="fas fa-shopping-cart course-left-not-purchased-icon"></i>
-                                        <span class="course-left-not-purchased-title">دانلود دوره</span>
-                                    </a>
-                                </div>
-                                <div class="course-left-purchased">
-                                    <i class="far fa-check-circle course-left-purchased-icon"></i>
-                                    <span class="course-left-purchased-title">شما قبلاً اين دوره را خريداري كرده ايد.</span>
-                                </div>
-                            {% else %}
-                                <div class="course-left-not-purchased">
-                                    <a href="{% url 'payment_request' product.id %}" class="course-left-not-purchased-link">
-                                        <i class="fas fa-shopping-cart course-left-not-purchased-icon"></i>
-                                        <span class="course-left-not-purchased-title">ثبت نام در دوره</span>
-                                    </a>
-                                </div>
-                                <div class="course-left-purchased">
-                                    <i class="far fa-check-circle course-left-purchased-icon"></i>
-                                    <span class="course-left-purchased-title">پرداخت از طریق درگاه زرین پال</span>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="course-left-tags">
-                            <ul class="course-left-tags-list">
-                            {% for p in products  %}
-                            <a href="{% url 'product' p.id %}"
-                                <li class="course-left-tags-item">
-                                    {{p.name.decode}}
-                                </li>
-                            </a>
-                            {% endfor %}
-                            </ul>
                         </div>
                     </div>
                 </div>
